@@ -3,6 +3,7 @@
 #### Installing the Cromwell To Use Local Scratch Device
 
 In this section we will install the Cromwell Workflow Management system and configure it, so it can use the local scratch device on the compute nodes.
+(these installations are done in a ```centos 8``` enviornment)
 
 #### 1. In order to install Cromwell, the `sbt` build tool is required, so we will install this now.
 
@@ -144,44 +145,7 @@ wget https://raw.githubusercontent.com/broadinstitute/cromwell/52_hotfix/core/\
 src/main/resources/reference.conf cromwell/
 ```
 
-#### 2. First, we will add `MAriaDB` as the database Cromwell should use.
-
-##### a. Open the `cromwell/reference.conf` file for editing
-
-##### b. Add the following lines at the end of the file in order to configure the Database:
-
-```hocon
-database {
-profile = "slick.jdbc.MySQLProfile$"
-db {
-driver = "com.mysql.cj.jdbc.Driver"
-url = "jdbc:mysql://localhost/cromwell?rewriteBatchedStatements=true&serverTimezone=UTC"
-user = "cromwell"
-password = "cromwell"
-connectionTimeout = 5000
-} }
-```
-
-##### c. Save and exit the file
-
-You can also execute the following commands
-
-```hocon
-sed -i '$ a database {' reference.conf
-sed -i '$ a \ \ profile = \"slick.jdbc.MySQLProfile$\"' reference.conf
-sed -i '$ a \ \ db {' reference.conf
-sed -i '$ a \ \ \ \ driver = \"com.mysql.cj.jdbc.Driver\"' reference.conf
-sed -i '$ a \ \ \ \ url = \"jdbc:mysql:\/\/localhost\/cromwell\?rewriteBatched\
-Statements=true&serverTimezone=UTC\"' reference.conf
-sed -i '$ a \ \ \ \ user = \"cromwell\"' reference.conf
-sed -i '$ a \ \ \ \ password = \"cromwell\"' reference.conf
-sed -i '$ a \ \ \ \ connectionTimeout = 5000' reference.conf
-sed -i '$ a \ \ }' reference.conf
-sed -i '$ a }' reference.conf
-```
-
-
-#### 3. We will now add `SLURM` as the backend Cromwell should use
+#### 2. We will now add `SLURM` as the backend Cromwell should use
 
 ##### a. Open the `cromwell/reference.conf` file for editing
 
